@@ -22,14 +22,14 @@ VALIDATE(){
 CHECK_ROOT
 
 echo "Script execution time is : $(date)"
-dnf install ansible -y
 
-# dnf list install ansible
-# if [ $? -ne 0 ]
-# then 
-#     echo "Ansible not installed. installing now"
-#     dnf install ansible -y
-#     VALIDATE $? "install ansible"
-# else
-#     echo "Ansible already installed. nothing to do"
-# fi
+
+dnf list install ansible
+if [ $? -ne 0 ]
+then 
+    echo "Ansible not installed. installing now"
+    dnf install ansible -y
+    VALIDATE $? "install ansible"
+else
+    echo "Ansible already installed. nothing to do"
+fi
