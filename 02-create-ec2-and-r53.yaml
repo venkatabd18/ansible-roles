@@ -12,6 +12,8 @@
       - mysql
       - backend
       - frontend
+    zone: venra.online
+
   tasks:
   - name: install boto3 and botocore
     ansible.builtin.pip:
@@ -36,4 +38,17 @@
   - name: print ec2 info
     ansible.builtin.debug:
       msg: "{{ ec2_info }}"
+
+  - name: create private r53 records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ zone }}"
+      record: "{{ item.item }}.{{ zone }}"
+      value: "{{ item.instances[0].private_ip_address }}"
+      type: A
+      ttl: 1
+      wait: true
+    loop: "{{ ec2_info.results }}"
+    overwrite: true
+
 
