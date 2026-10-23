@@ -61,5 +61,19 @@
       src: backend.service
       dest: /etc/systemd/system/backend.service
       
+  - name: install PyMySQL
+    ansible.builtin.pip:
+      name: PyMySQL
+      state: present
+      executable: pip3.9
+
+  - name: load the schema
+    ansible.mysql.mysql_db:
+      name: all
+      login_host: "{{ login_host }}"
+      login_password: "{{ login_password }}"
+      login_user: "{{ login_user}}"
+      state: "import"
+
 
   
