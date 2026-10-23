@@ -25,7 +25,21 @@
     ansible.builtin.file:
       path: /app
       state: directory
-  
+
+  - name: check expense exixt or not
+    ansible.builtin.command: id expense
+    ignore_errors: true
+    register: user_info
+
+  - name: print user info
+    ansible.builtin.debug:
+      msg: "{{ user_info }}"
+
+  # - name: create expense user
+  #   ansible.builtin.user:
+  #     name: expense
+  #     state: present
+  #   when:   
  
 
   
