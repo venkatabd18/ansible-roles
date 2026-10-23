@@ -1,0 +1,15 @@
+- name: configure mysql
+  hosts: mysql
+  become: yes
+  vars:
+    login_user: root
+    login_password: ExpenseApp@1
+    login_host: mysql.venra.online
+  tasks:
+  - name: gathering mysql info
+    ansible.mysql.mysql_info:
+      login_user: "{{ login_user }}"
+      login_password: "{{ login_password }}"
+      login_host: "{{ login_host}}"
+    register: mysql_info
+    
