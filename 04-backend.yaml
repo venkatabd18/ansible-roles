@@ -68,7 +68,7 @@
       executable: pip3.9
 
   - name: load the schema
-    ansible.mysql.mysql_db:
+    community.mysql.mysql_db:
       name: all
       login_host: "{{ login_host }}"
       login_password: "{{ login_password }}"
