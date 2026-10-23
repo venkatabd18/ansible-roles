@@ -12,4 +12,9 @@
       login_password: "{{ login_password }}"
       login_host: "{{ login_host}}"
     register: mysql_info
+    ignore_errors: true
+
+  - name: print mysql info
+    ansible.builtin.debug:
+      msg: "{{ mysql_info }}"
     
