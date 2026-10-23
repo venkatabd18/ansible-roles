@@ -20,11 +20,12 @@
     loop:
       - nodejs
       - mysql
-  
-  - name: verify nodejs
-    ansible.builtin.command: node -v
-    register: nodejs_info
 
-  - name: print nodejs info
-    ansible.builtin.debug:
-      msg: "{{ nodejs_info }}"
+  - name: create app dir
+    ansible.builtin.file:
+      path: /app
+      state: directory
+  
+ 
+
+  
