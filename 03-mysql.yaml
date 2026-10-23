@@ -1,12 +1,9 @@
 - name: configure mysql
   hosts: mysql
   become: yes
-  vars:
-    login_user: root
-    login_password: ExpenseApp@1
-    login_host: mysql.venra.online
+ 
   tasks:
   - name: install mysql server
     ansible.builtin.command: dnf install mysql-server -y
-    
+
       
