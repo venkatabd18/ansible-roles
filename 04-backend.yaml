@@ -74,6 +74,4 @@
       login_password: "{{ login_password }}"
       login_user: "{{ login_user}}"
       state: "import"
-
-
   
