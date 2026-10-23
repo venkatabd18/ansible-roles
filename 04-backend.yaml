@@ -74,4 +74,5 @@
       login_password: "{{ login_password }}"
       login_user: "{{ login_user}}"
       state: "import"
+      target: /app/schema/backend.sql
   
