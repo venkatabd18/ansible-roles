@@ -40,6 +40,16 @@
       name: expense
       state: present
     when: user_info.rc != "0"  
+  
+  - name: download the backend code
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-backend-v5.tar.gz
+      dest: /tmp/backend.tar.gz 
+
+  - name: unzip the backend code
+    ansible.builtin.unarchive:
+      src: /tmp/backend.tar.gz
+      dest: /app
  
 
   
