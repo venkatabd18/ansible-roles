@@ -51,6 +51,10 @@
       src: /tmp/backend.tar.gz
       dest: /app
       remote_src: yes
+  
+  - name: install npm
+    community.general.npm:
+      path: /app
  
 
   
