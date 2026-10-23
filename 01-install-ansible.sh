@@ -30,5 +30,5 @@ then
     dnf install ansible -y
     VALIDATE $? "install ansible"
 else
-    echo "Ansible already installed"
+    echo "Ansible already installed. nothing to do"
 fi
