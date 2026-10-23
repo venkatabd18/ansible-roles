@@ -1,0 +1,14 @@
+- name: configure backend
+  hosts: backend
+  become: yes
+  vars:
+    login_host: mysql.venra.online
+    login_password: ExpenseApp@1
+    login_user: root
+  
+  tasks:
+  - name: disable nodejs
+    ansible.builtin.command: dnf module disable nodejs -y
+
+  - name: enable nodejs
+    ansible.builtin.command: dnf module enable nodejs:24 -y
