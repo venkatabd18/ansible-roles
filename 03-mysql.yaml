@@ -4,6 +4,7 @@
   vars:
     login_host: mysql.venra.online
     login_password: ExpenseApp@1
+    login_user: root
  
   tasks:
   - name: install mysql server
@@ -14,12 +15,14 @@
       name: mysqld
       state: "started"
       enabled: yes
-
-  - name: gather mysql info
-    community.mysql_info:
+  
+  - name: get the mysql info
+    community.mysql.mysql_info:
       login_host: "{{ login_host }}"
+      login_user: "{{ login_user }}"
       login_password: "{{ login_password }}"
-      login_user: root
+
+
 
 
       
