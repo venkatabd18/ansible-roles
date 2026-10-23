@@ -7,7 +7,6 @@
     login_host: mysql.venra.online
   tasks:
   - name: install mysql server
-    ansible.builtin.package:
-      name: mysql-server
-      state: present
+    ansible.builtin.command: dnf install mysql-server -y
     
+      
