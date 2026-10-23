@@ -7,7 +7,7 @@
     login_host: mysql.venra.online
   tasks:
   - name: gathering mysql info
-    ansible.mysql.mysql_info:
+    community.mysql.mysql_info:
       login_user: "{{ login_user }}"
       login_password: "{{ login_password }}"
       login_host: "{{ login_host}}"
