@@ -16,7 +16,7 @@
       enabled: yes
 
   - name: gather mysql info
-    ansible.mysql.mysql_info:
+    community.mysql_info:
       login_host: "{{ login_host }}"
       login_password: "{{ login_password }}"
       login_user: root
