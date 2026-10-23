@@ -6,15 +6,8 @@
     login_password: ExpenseApp@1
     login_host: mysql.venra.online
   tasks:
-  - name: gathering mysql info
-    community.mysql.mysql_info:
-      login_user: "{{ login_user }}"
-      login_password: "{{ login_password }}"
-      login_host: "{{ login_host}}"
-    register: mysql_info
-    ignore_errors: true
-
-  - name: print mysql info
-    ansible.builtin.debug:
-      msg: "{{ mysql_info }}"
+  - name: install mysql server
+    ansible.builtin.package:
+      name: mysql-server
+      state: present
     
