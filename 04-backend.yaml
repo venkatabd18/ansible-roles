@@ -50,6 +50,7 @@
     ansible.builtin.unarchive:
       src: /tmp/backend.tar.gz
       dest: /app
+      remote_src: yes
  
 
   
