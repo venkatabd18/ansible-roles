@@ -40,14 +40,27 @@
     ansible.builtin.debug:
       msg: "{{ ec2_info }}"
   
-  # - name: create private r53 records
-  #   amazon.aws.route53:
-  #     overwrite: true
-  #     record: "{{ item.item }}.{{ zone }}"
-  #     state: "present"
-  #     ttl: 1
-  #     type: A 
-  #     value: "{{ item.instances[0].private_}}"
-  #     wait: true
-  #     zone: "{{ zone }}" 
-  #   loop: "{{ ec2_info.results }}"
+  - name: create private r53 records
+    amazon.aws.route53:
+      overwrite: true
+      record: "{{ item.item }}.{{ zone }}"
+      state: "present"
+      ttl: 1
+      type: A 
+      value: "{{ item.instances[0].private_ip_address}}"
+      wait: true
+      zone: "{{ zone }}" 
+    loop: "{{ ec2_info.results }}"
+
+  - name: create public r53 record
+    amazon.aws.route53:
+      overwrite: true
+      record: "{{ zone }}"
+      state: "present"
+      ttl: 1
+      type: A 
+      value: "{{ item.instances[0].public_ip_address}}"
+      wait: true
+      zone: "{{ zone }}" 
+    loop: "{{ ec2_info.results }}"
+    when: item.item == "frontend"
