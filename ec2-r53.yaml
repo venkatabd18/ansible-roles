@@ -8,7 +8,7 @@
     sg_id: "sg-03891f88ae315b0c9"
     region: "us-east-1"
     type : "t3.micro"
-    zone: venra.onine
+    zone: venra.online
     instances:
       - mysql
       - backend
