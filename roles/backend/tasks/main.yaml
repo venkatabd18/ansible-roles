@@ -39,3 +39,21 @@
     src: /tmp/backend.tar.gz
     dest: /app
     remote_src: yes
+
+- name: install npm
+  community.general.npm:
+    path: /app
+
+- name: copy the backend service
+  ansible.builtin.copy:
+    src: backend.service.j2
+    dest: /etc/systemd/system/backend.service
+
+- name: Load Database Schema
+  ansible.mysql.mysql_db:
+    login_host: "{{ login_host }}"
+    login_password: "{{ login_password }}"
+    login_user: "{{ login_user }}"
+    name: all
+    state: "import"
+    target: /app/schema/backend.sql
