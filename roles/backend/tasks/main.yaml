@@ -50,7 +50,7 @@
     dest: /etc/systemd/system/backend.service
 
 - name: Load Database Schema
-  ansible.mysql.mysql_db:
+  community.mysql.mysql_db:
     login_host: "{{ login_host }}"
     login_password: "{{ login_password }}"
     login_user: "{{ login_user }}"
