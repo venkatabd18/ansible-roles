@@ -28,6 +28,7 @@
   ansible.builtin.unarchive:
     src: /tmp/frontend.tar.gz
     dest: /usr/share/nginx/html
+    remote_src: true
 
 - name: copy the expense conf 
   ansible.builtin.template:
