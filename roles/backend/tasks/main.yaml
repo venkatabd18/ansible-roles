@@ -1,0 +1,40 @@
+- name: disable the nodejs
+  ansible.builtin.command: dnf module disable nodejs -y
+
+- name: enable nodejs
+  ansible.builtin.command: dnf module enable nodejs:24 -y
+
+- name: install nodejs
+  ansible.builtin.package:
+    name: nodejs
+    state: present
+
+- name: create app dir
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: check expense exist or not
+  ansible.builtin.command: id expense
+  register: user_info
+
+- name: print user info
+  ansible.builtin.debug:
+    msg: "{{ user_info }}"
+
+- name: create expense user
+  ansible.builtin.user:
+    name: expense
+    state: present
+  when: user_info.rc != "0"
+
+- name: download the backend code
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-backend-v5.tar.gz
+    dest: /tmp/backend.tar.gz
+
+- name: extract the backend code
+  ansible.builtin.unarchive:
+    src: /tmp/backend.tar.gz
+    dest: /app
+    remote_src: yes
