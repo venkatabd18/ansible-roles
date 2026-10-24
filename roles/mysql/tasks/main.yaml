@@ -8,7 +8,7 @@
     enabled: yes
 
 - name: mysql info 
-  ansible.mysql.mysql_info:
+  community.mysql.mysql_info:
     login_host: "{{ login_host }}"
     login_password: "{{ login_password }}"
     login_user: "{{ login_user }}"
