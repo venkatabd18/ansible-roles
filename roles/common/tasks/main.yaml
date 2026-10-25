@@ -8,7 +8,13 @@
     path: "{{ app_location }}"
     state: directory
 
-- name: download and extract the code
-  ansible.builtin.unarchive:
+- name: download the code
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-{{ component }}-v5.tar.gz
+    dest: /tmp/{{ component }}.tar.gz
+
+- name: extract the code
+  ansible.builtin.unarchive:
+    src: /tmp/{{ component }}.tar.gz
     dest: "{{ app_location }}"
+    remote_src: yes
