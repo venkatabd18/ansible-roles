@@ -7,11 +7,11 @@
     state: started
     enabled: yes
 
-# - name: install PyMySQL
-#   ansible.builtin.package:
-#     name: PyMySQL
-#     state: present
-#     executable: pip3.9
+- name: install PyMySQL
+  ansible.builtin.pip:
+    name: PyMySQL
+    state: present
+    executable: pip3.9
 
 - name: get the mysql info
   community.mysql.mysql_info:
