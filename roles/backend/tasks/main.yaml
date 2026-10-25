@@ -15,6 +15,7 @@
 - name: checke expense user is availble or not
   ansible.builtin.command: id expense
   register: user_info
+  ignore_errors: true
 
 - name: print user info
   ansible.builtin.debug:
