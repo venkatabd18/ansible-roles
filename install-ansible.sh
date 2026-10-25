@@ -28,7 +28,7 @@ dnf list installed ansible
 if [ $? -ne 0 ]
 then
     echo "Ansible not installed. installing now"
-    VALIDATE
+    VALIDATE $? "install ansible"
 else
     echo "Ansible already installed. nothing to do."
 fi
