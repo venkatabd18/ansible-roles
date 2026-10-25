@@ -12,10 +12,15 @@
     - nodejs
     - mysql
 
-- name: create app dir
-  ansible.builtin.file:
-    path: /app
-    state: directory
+# - name: create app dir
+#   ansible.builtin.file:
+#     path: /app
+#     state: directory
+
+- name: create app dir using comman tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: main.yaml 
 
 - name: check expense exist or not
   ansible.builtin.command: id expense
