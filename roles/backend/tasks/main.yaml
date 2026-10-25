@@ -30,3 +30,35 @@
   ansible.builtin.include_role:
     name: common
     tasks_from: main.yaml
+
+- name: install npm
+  community.general.npm:
+    path: "{{ app_location }}"
+
+- name: copy the backend service
+  ansible.builtin.template:
+    src: backend.service.j2
+    dest: /etc/systemd/system/backend.service
+    remote_src: yes
+
+- name: install PyMySQL
+  ansible.builtin.pip:
+    name: PyMySQL
+    state: present
+    executable: pip3.9
+
+- name: load database schema
+  ansible.mysql.mysql_db:
+    name: all 
+    state: "import"
+    login_user: "{{ login_user }}"
+    login_host: "{{ login_host }}"
+    login_password: "{{ login_password }}"
+    target: /app/schema/backend.sql
+
+- name: start the service
+  ansible.builtin.systemd.service:
+    name: backend
+    state: "restarted"
+    daemon_reload: true
+
