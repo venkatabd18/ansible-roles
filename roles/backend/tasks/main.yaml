@@ -19,3 +19,13 @@
 - name: print user info
   ansible.builtin.debug:
     msg: "{{ user_info }}"
+
+- name: create expense user
+  ansible.builtin.user:
+    name: expense
+    state: present
+
+- name: Run the tasks from common tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: main.yaml

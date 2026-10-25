@@ -1,3 +1,5 @@
 login_user: root
 login_host: mysql.venra.online
 login_password: ExpenseApp@1
+app_location: /app
+component: backend
