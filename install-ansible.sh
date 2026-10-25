@@ -30,5 +30,6 @@ then
     echo "Ansible not installed. installing now"
     VALIDATE
 else
-    echo "Ansible already installed. nothing to do
+    echo "Ansible already installed. nothing to do."
 fi
+    
