@@ -9,26 +9,31 @@
     state: started
     enabled: yes
 
-- name: remove the default html content
-  ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: absent
+- name: run the tasks from common tasks:
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: main.yaml
 
-- name: create the html directory
-  ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: directory
+# - name: remove the default html content
+#   ansible.builtin.file:
+#     path: /usr/share/nginx/html
+#     state: absent
 
-- name: download the frontend code
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v5.tar.gz
-    dest: /tmp/frontend.tar.gz
+# - name: create the html directory
+#   ansible.builtin.file:
+#     path: /usr/share/nginx/html
+#     state: directory
 
-- name: extract the frontend code
-  ansible.builtin.unarchive:
-    src: /tmp/frontend.tar.gz
-    dest: /usr/share/nginx/html
-    remote_src: true
+# - name: download the frontend code
+#   ansible.builtin.get_url:
+#     url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v5.tar.gz
+#     dest: /tmp/frontend.tar.gz
+
+# - name: extract the frontend code
+#   ansible.builtin.unarchive:
+#     src: /tmp/frontend.tar.gz
+#     dest: /usr/share/nginx/html
+#     remote_src: true
 
 - name: copy the expense conf 
   ansible.builtin.template:
