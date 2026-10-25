@@ -9,7 +9,7 @@
     state: started
     enabled: yes
 
-- name: run the tasks from common tasks:
+- name: run the tasks from common tasks
   ansible.builtin.include_role:
     name: common
     tasks_from: main.yaml
