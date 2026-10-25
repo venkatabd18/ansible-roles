@@ -18,10 +18,11 @@
     ansible.builtin.pip:
       name: "{{ item }}"
       state: present
+      executable: pip3.9
     loop:
       - boto3
       - botocore
-      
+
   - name: create ec2 instances
     amazon.aws.ec2_instance:
       name: "{{ item }}"
