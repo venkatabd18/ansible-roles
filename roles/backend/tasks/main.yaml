@@ -1,0 +1,21 @@
+- name: disable nodejs
+  ansible.builtin.command: dnf module disable nodejs -y
+
+- name: enable nodejs
+  ansible.builtin.command: dnf module enable nodejs:24 -y
+
+- name: install mysql and nodejs
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mysql
+    - nodejs
+
+- name: checke expense user is availble or not
+  ansible.builtin.command: id expense
+  register: user_info
+
+- name: print user info
+  ansible.builtin.debug:
+    msg: "{{ user_info }}"
