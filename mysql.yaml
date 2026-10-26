@@ -23,3 +23,17 @@
       name: PyMySQL
       state: present
       executable: pip3.9
+
+  - name: get the mysql info
+    community.mysql.mysql_info:
+      login_host: "{{ login_host }}"
+      login_user: "{{ login_user }}"
+      login_password: "{{ login_password }}"
+    register: mysql info
+    ignore_errors: true
+
+  - name: print mysql info
+    ansible.builtin.debug:
+      msg: "{{ mysql_info }}"
+
+  
