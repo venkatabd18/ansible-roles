@@ -55,13 +55,16 @@
 
   - name: copy the banckend service
     ansible.builtin.copy:
-      src: banckend.service
+      src: backend.service
       dest: /etc/systemd/system/backend.service
       remote_src: yes
 
   - name: Load Database Schema
     community.mysql.mysql_db:
-      name: all
+      login_host: "{{ login_host }}"
+      login_user: "{{ login_user }}"
+      login_password: "{{ login_password }}"
+
 
 
 
