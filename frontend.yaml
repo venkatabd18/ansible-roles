@@ -1,0 +1,8 @@
+- name: frontend configuration
+  hosts: frontend
+  become: yes
+  vars:
+    BACKEND_HOST: backend.venra.online
+  
+  tasks:
+  
