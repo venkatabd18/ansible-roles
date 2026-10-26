@@ -1,5 +1,41 @@
 - name: mysql configuration
   hosts: mysql
   become: yes
-  roles:
-    - mysql
+  vars:
+    login_host: mysql.venra.online
+    login_password: ExpenseApp@1
+    login_user: root
+
+  tasks:
+  - name: install mysql server
+    ansible.builtin.command: dnf install mysql-server -y
+
+  - name: start the mysql server
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes
+
+  - name: install PyMySQL
+    ansible.builtin.pip:
+      name: PyMySQL
+      state: present
+      executable: pip3.9
+
+  - name: gather the mysql info
+    community.mysql.mysql_info:
+      login_user: "{{ login_user }}"
+      login_password: "{{ login_password }}"
+      login_host: "{{ login_host }}"
+      ignore_errors: true
+    register: mysql_info
+
+  - name: print mysql info
+    ansible.builtin.debug:
+      msg: "{{ mysql_info }}"
+
+  # - name: set mysql root password
+  #   ansible.builtin.command: mysql_secure_installation --set-root-pass ExpenseApp@1
+  #   when: 
+
+       
