@@ -1,0 +1,25 @@
+- name: mysql configuration
+  hosts: mysql
+  become: yes
+  vars:
+    login_host: mysql.venra.online
+    login_user: root
+    login_password: ExpenseApp@1
+
+  tasks:
+  - name: install mysql server
+    ansible.builtin.package:
+      name: mysql-server
+      state: present
+
+  - name: start and enable mysql server
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes
+
+  - name: install PyMySQL
+    ansible.builtin.pip:
+      name: PyMySQL
+      state: present
+      executable: pip3.9
