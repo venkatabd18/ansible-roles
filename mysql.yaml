@@ -7,22 +7,24 @@
     login_user: root
 
   tasks:
-  - name: install mysql server
-    ansible.builtin.command: dnf install mysql-server -y
-
-  - name: start the mysql server
-    ansible.builtin.service:
-      name: mysqld
-      state: started
-      enabled: yes
-
   - name: install PyMySQL
     ansible.builtin.pip:
       name: PyMySQL
       state: present
       executable: pip3.9
 
-  - name: gather the mysql info
+  - name: install mysql server
+    ansible.builtin.service: 
+      name: mysql-server
+      state: present
+
+  - name: start the mysql server
+    ansible.builtin.service:
+      name: mysqld
+      state: started
+      enabled: yes 
+
+  - name: connect to mysql server
     community.mysql.mysql_info:
       login_user: "{{ login_user }}"
       login_password: "{{ login_password }}"
@@ -35,7 +37,7 @@
       msg: "{{ mysql_info }}"
 
   - name: set mysql root password
-    ansible.builtin.command: mysql_secure_installation --set-root-pass ExpenseApp@1
+    ansible.builtin.command: mysql_secure_installation --set-root-pass "{{ login_password }}"
     when: mysql_info.failed is true
 
        
