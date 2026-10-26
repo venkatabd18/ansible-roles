@@ -57,16 +57,22 @@
     ansible.builtin.copy:
       src: backend.service
       dest: /etc/systemd/system/backend.service
-      #remote_src: yes
+      
+  - name: Load Database Schema
+    community.mysql.mysql_db:
+      login_host: "{{ login_host }}"
+      login_user: "{{ login_user }}"
+      login_password: "{{ login_password }}"
+      name: all
+      state: "import"
+      target: /app/schema/backend.sql
 
-  # - name: Load Database Schema
-  #   community.mysql.mysql_db:
-  #     login_host: "{{ login_host }}"
-  #     login_user: "{{ login_user }}"
-  #     login_password: "{{ login_password }}"
-  #     name: all
-  #     state: "import"
-  #     target: 
+  - name: Start the Service
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: backend
+      state: "restarted"
+
 
 
 
