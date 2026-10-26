@@ -36,6 +36,6 @@
     ansible.builtin.debug:
       msg: "{{ mysql_info }}"
 
-  # - name: set root password
-  #   ansible.builtin.command: mysql_secure_installation --set-root-pass {{ login_password }}
-    
+  - name: set root password
+    ansible.builtin.command: mysql_secure_installation --set-root-pass {{ login_password }}
+    when: mysql_info failed is true
