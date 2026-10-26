@@ -26,7 +26,7 @@
       path: /usr/share/nginx/html
       state: directory
 
-  - name: download the backend code
+  - name: download the frontend code
     ansible.builtin.get_url:
       url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v5.tar.gz
       dest: /tmp/frontend.tar.gz
