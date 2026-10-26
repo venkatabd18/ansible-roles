@@ -53,4 +53,11 @@
     args:
       chdir: /app
 
+  - name: copy the banckend service
+    ansible.builtin.copy:
+      src: banckend.service
+      dest: /etc/systemd/system/backend.service
+      
+
+
 
