@@ -50,7 +50,7 @@
       value: "{{ item.instances[0].private_ip_address }}"
       wait: true
       zone: "{{ zone }}"
-    loop: "{{ results.ec2_info }}"
+    loop: "{{ ec2_info.results }}"
 
 
 
