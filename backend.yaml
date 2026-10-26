@@ -1,5 +1,73 @@
 - name: backend configuration
   hosts: backend
   become: yes
-  roles:
-    - backend
+  vars:
+    login_host: mysql.venra.online
+    login_password: ExpenseApp@1
+    login_user: root
+
+  tasks:
+  - name: disable nodejs
+    ansible.builtin.command: dnf module disable nodejs -y
+
+  - name: enable nodejs
+    ansible.builtin.command: dnf module enable nodejs:24 -y
+
+  - name: install nodejs and mysql
+    ansible.builtin.package:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - mysql
+      - nodejs
+
+  - name: create expense user 
+    ansible.builtin.user:
+      name: expense
+      state: present
+
+  - name: create app directory
+    ansible.builtin.file:
+      name: /app
+      state: directory
+
+  - name: download and extract the backend code
+    ansible.builtin.unarchive: 
+      src: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-backend-v5.tar.gz
+      dest: /app
+      remote_src: yes
+
+  - name: install npm
+    ansible.builtin.command: npm install
+    args: 
+      chdir: /app
+
+  - name: copy backend service
+    ansible.builtin.copy:
+      src: backend.service
+      dest: /etc/systemd/system/backend.service
+      remote_src: yes
+
+  - name: install PyMySQL
+    ansible.builtin.pip:
+      name: PyMySQL
+      state: present
+      executable: pip3.9
+
+  - name: Load Database Schema
+    community.mysql.mysql_db:
+      login_host: "{{ login_host }}"
+      login_user: "{{ login_user }}"
+      login_password: "{{ login_password }}"
+      name: all
+      state: "import"
+      target: /app/schema/backend.sql
+
+  - name: restart the backend
+    ansible.builtin.systemd_service:
+      name: backend
+      state: restarted
+      daemon_reload: true
+
+
+  
