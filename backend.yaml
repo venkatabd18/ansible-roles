@@ -57,7 +57,12 @@
     ansible.builtin.copy:
       src: banckend.service
       dest: /etc/systemd/system/backend.service
-      
+      remote_src: yes
+
+  - name: Load Database Schema
+    community.mysql.mysql_db:
+      name: all
+
 
 
 
