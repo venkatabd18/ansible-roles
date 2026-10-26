@@ -1,4 +1,4 @@
-- name: create ec2 and r53 records
+- name: create ec2 instances and r53 records
   hosts: local
   connection: local
   become: yes
@@ -8,27 +8,17 @@
     sg_id: "sg-03891f88ae315b0c9"
     region: "us-east-1"
     type : "t3.micro"
-    zone: venra.online
     instances:
       - mysql
       - backend
       - frontend
 
   tasks:
-  - name: install boto3 and botocore
-    ansible.builtin.pip:
-      name: "{{ item }}"
-      state: present
-      executable: pip3.9
-    loop:
-      - boto3
-      - botocore
-
   - name: create ec2 instances
     amazon.aws.ec2_instance:
-      name: "{{ item }}"
       image_id: "{{ image_id }}"
       instance_type: "{{ type }}"
+      name: "{{ item }}"
       region: "{{ region }}"
       security_group: "{{ sg_id }}"
       vpc_subnet_id: "{{ subnet_id }}"
@@ -36,32 +26,6 @@
     loop: "{{ instances }}"
     register: ec2_info
 
-  - name: print ec2 info
-    ansible.builtin.debug:
+  - name: print ec2 ec2_info
+    amazon.builtin.debug:
       msg: "{{ ec2_info }}"
-
-  - name: create private r53 records
-    amazon.aws.route53:
-      record: "{{ item.item }}.{{ zone }}"
-      ttl: 1
-      type: A
-      value: "{{ item.instances[0].private_ip_address }}"
-      wait: true
-      zone: "{{ zone }}"
-      state: present
-      overwrite: true
-    loop: "{{ ec2_info.results }}"
-
-  - name: create public r53 records
-    amazon.aws.route53:
-      record: "{{ zone }}"
-      ttl: 1
-      type: A
-      value: "{{ item.instances[0].public_ip_address }}"
-      wait: true
-      zone: "{{ zone }}"
-      state: present
-      overwrite: true
-    loop: "{{ ec2_info.results }}"
-    when: item.item == "frontend"
-
