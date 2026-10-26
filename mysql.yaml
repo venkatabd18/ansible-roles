@@ -14,9 +14,9 @@
       executable: pip3.9
 
   - name: install mysql server
-    ansible.builtin.command: dnf install mysql-server -y
-      # name: mysql-server
-      # state: present
+    ansible.builtin.package: 
+      name: mysql-server
+      state: present
 
   - name: start the mysql server
     ansible.builtin.service:
