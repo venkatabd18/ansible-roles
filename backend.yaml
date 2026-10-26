@@ -20,3 +20,37 @@
     loop:
       - mysql
       - nodejs
+
+  - name: install PyMySQL
+    ansible.builtin.pip:
+      name: PyMySQL
+      state: present
+      executable: pip3.9
+
+  - name: create expense user
+    ansible.builtin.user:
+      name: expense
+      state: present
+
+  - name: create app directory
+    ansible.builtin.file:
+      path: /app
+      state: "directory"
+
+  - name: download the backend code
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-backend-v5.tar.gz
+      dest: /tmp/backend.tar.gz
+
+  - name: unzip the code
+    ansible.builtin.unarchive:
+      src: /tmp/backend.tar.gz
+      dest: /app
+      remote_src: yes
+
+  - name: install dependencies
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app
+
+
