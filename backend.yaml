@@ -59,11 +59,11 @@
       dest: /etc/systemd/system/backend.service
       remote_src: yes
 
-  - name: Load Database Schema
-    community.mysql.mysql_db:
-      login_host: "{{ login_host }}"
-      login_user: "{{ login_user }}"
-      login_password: "{{ login_password }}"
+  # - name: Load Database Schema
+  #   community.mysql.mysql_db:
+  #     login_host: "{{ login_host }}"
+  #     login_user: "{{ login_user }}"
+  #     login_password: "{{ login_password }}"
 
 
 
