@@ -48,10 +48,9 @@
       dest: /app
       remote_src: yes
 
-  - name: install dependencies
-    ansible.builtin.command: npm install
-    args:
-      chdir: /app
+  - name: install npm
+    community.general.npm:
+      path: /app
 
   - name: copy the banckend service
     ansible.builtin.copy:
@@ -71,7 +70,7 @@
     ansible.builtin.systemd_service:
       daemon_reload: true
       name: backend
-      state: "restarted"
+      state: restarted
 
 
 
