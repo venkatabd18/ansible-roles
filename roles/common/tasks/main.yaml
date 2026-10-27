@@ -1,9 +1,9 @@
-- name: remove the default nginx content
+- name: remove the default directory
   ansible.builtin.file:
     path: "{{ app_location }}"
     state: absent
 
-- name: create htm directory
+- name: create app directory
   ansible.builtin.file:
     path: "{{ app_location }}"
     state: directory

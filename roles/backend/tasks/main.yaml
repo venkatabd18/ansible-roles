@@ -28,7 +28,7 @@
     name: common
     tasks_from: main.yaml
 
-- name: install npm
+- name: install dependencies
   community.general.npm:
     path: "{{ app_location }}"
 
