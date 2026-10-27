@@ -1,10 +1,9 @@
 - name: backend configuration
   hosts: backend
   become: yes
-  vars:
-    login_host: mysql.venra.online
-    login_user: root
-    login_password: ExpenseApp@1
+  roles:
+    - backend
+ 
   
  
   
