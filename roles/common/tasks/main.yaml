@@ -5,7 +5,7 @@
 
 - name: create htm directory
   ansible.builtin.file:
-    path: "{{ /usr/share/nginx/html }}"
+    path: "{{ app_location }}"
     state: directory
 
 - name: download the {{ component }} code
