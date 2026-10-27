@@ -14,33 +14,13 @@
     name: common
     tasks_from: main.yaml
 
-# - name: remove the default nginx content
-#   ansible.builtin.file:
-#     path: /usr/share/nginx/html
-#     state: absent
-
-# - name: create htm directory
-#   ansible.builtin.file:
-#     path: /usr/share/nginx/html
-#     state: directory
-
-# - name: download the frontend code
-#   ansible.builtin.get_url:
-#     url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v5.tar.gz
-#     dest: /tmp/frontend.tar.gz
-
-# - name: unzip the code
-#   ansible.builtin.unarchive:
-#     src: /tmp/frontend.tar.gz
-#     dest: /usr/share/nginx/html
-#     remote_src: yes
-
 - name: copy the expense conf 
   ansible.builtin.template:
     src: expense.conf.j2
-    dest: /etc/nginx/default.d/expense.conf  
+    dest: /etc/nginx/default.d/expense.conf 
+  notify: restart nginx
 
-- name: restart the nginx
-  ansible.builtin.service:
-    name: nginx
-    state: restarted
+# - name: restart the nginx
+#   ansible.builtin.service:
+#     name: nginx
+#     state: restarted
