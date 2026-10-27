@@ -10,7 +10,7 @@
 
 - name: download the {{ component }} code
   ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v5.tar.gz
+    url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-{{ component }}-v5.tar.gz
     dest: /tmp/{{ component }}.tar.gz
 
 - name: unzip the code
