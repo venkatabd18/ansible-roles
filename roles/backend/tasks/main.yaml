@@ -23,21 +23,26 @@
     name: expense
     state: present
 
-- name: create app directory
-  ansible.builtin.file:
-    path: /app
-    state: "directory"
+- name: execte the tasks from common tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: main.yaml
 
-- name: download the backend code
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-backend-v5.tar.gz
-    dest: /tmp/backend.tar.gz
+# - name: create app directory
+#   ansible.builtin.file:
+#     path: /app
+#     state: "directory"
 
-- name: unzip the code
-  ansible.builtin.unarchive:
-    src: /tmp/backend.tar.gz
-    dest: /app
-    remote_src: yes
+# - name: download the backend code
+#   ansible.builtin.get_url:
+#     url: https://raw.githubusercontent.com/daws-92s/expense-documentation/refs/heads/main/artifacts/expense-backend-v5.tar.gz
+#     dest: /tmp/backend.tar.gz
+
+# - name: unzip the code
+#   ansible.builtin.unarchive:
+#     src: /tmp/backend.tar.gz
+#     dest: /app
+#     remote_src: yes
 
 - name: install npm
   community.general.npm:
